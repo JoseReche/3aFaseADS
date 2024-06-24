@@ -1,0 +1,130 @@
+# Gestão de Tarefas
+
+Desenvolva um sistema de gerenciamento de projetos e tarefas utilizando Node.js. 
+Este sistema permitirá que usuários criem, visualizem, editem e excluam projetos e tarefas. 
+Cada projeto pode ter várias tarefas associadas, e cada tarefa terá um título, descrição, 
+data de criação, data de conclusão e status.
+
+## Entidades
+
+* Usuário
+    - OK * ID (único)        
+    - OK * Nome              
+    - OK * Email                
+    - OK * Senha (hash)      
+    - OK * Data de criação   
+* Projeto
+    - OK * ID (único)        
+    - OK * Nome               
+    - OK * Descrição         
+    - OK * Data de criação   
+    - OK * ID do Usuário (relacionamento com a entidade Usuário) -fixada em quam esta logado pelo cookie
+    - OK $ Update somente permitido para o usuario criador do projeto
+* Tarefa
+    - OK * ID (único)       
+    - OK * Título            
+    - OK * Descrição         
+    - OK * Data de criação   
+    - OK $ Data da ultima atualização                           
+    - Falta * Data de conclusão (opcional)                          
+    - OK * Status (pendente, em andamento, concluída)           
+    - Falta * ID do Projeto (relacionamento com a entidade Projeto) 
+  
+## Estrutura do Projeto
+
+```
+project-manager/
+├── src/
+│   ├── api/
+│   │   ├── project.js
+│   │   ├── task.js
+│   │   └── user.js
+│   ├── controllers/
+│   │   ├── project.js
+│   │   ├── task.js
+│   │   └── user.js
+│   ├── models/
+│   │   ├── project.js
+│   │   ├── task.js
+│   │   └── user.js
+│   ├── routes/
+│   │   ├── project.js
+│   │   ├── task.js
+│   │   └── user.js
+│   ├── middlewares/
+│   │   └── authMiddleware.js
+│   ├── config/
+│   │   └── database.js
+│   ├── app.js
+│   └── server.js
+├── package.json
+└── README.md
+```
+
+## Requisitos
+
+### Criação de Usuário
+
+- OK * O sistema deve permitir a criação de novos usuários com nome, email e senha. 
+- Falta * O email deve ser único para cada usuário. 
+- OK * A senha deve ser armazenada de forma segura (hash). 
+  
+### Autenticação
+
+- OK * O sistema deve permitir que usuários façam login utilizando email e senha. 
+- OK * Deve ser gerado um token JWT para sessões autenticadas.
+
+### Gerenciamento de Projetos
+
+- OK * Usuários autenticados podem criar novos projetos. 
+- OK * Cada projeto deve ter um nome e descrição.
+- Falta * Usuários podem editar e excluir seus próprios projetos. - porem restringir a apenas quem criou
+- Falta * Usuários podem visualizar uma lista de seus projetos. -   porem restringir a apenas quem criou
+
+### Gerenciamento de Tarefas
+
+- OK * Usuários autenticados podem criar novas tarefas associadas a projetos existentes. 
+- OK * Cada tarefa deve ter um título, descrição e status inicial como "pendente".
+- OK * Usuários podem editar e excluir suas próprias tarefas. - porem restringir a apenas quem criou
+- OK * Usuários podem visualizar uma lista de tarefas por projeto com filtros por status.
+- +/- * Cada tarefa deve registrar a data de criação automaticamente e permitir a adição de uma data de conclusão. - falta identificar uma data para conclusao
+
+### Validações
+
+- Falta * Todos os campos obrigatórios devem ser validados.
+- Falta * O título das tarefas deve ter um limite de caracteres (por exemplo, máximo 100 caracteres).
+- Falta * O nome dos projetos deve ter um limite de caracteres (por exemplo, máximo 100 caracteres).
+
+### Segurança
+
+- Falta * Implementar middleware de autenticação para proteger rotas que necessitam de usuário autenticado.
+- OK * Senhas devem ser armazenadas de forma segura utilizando bcrypt.
+
+## Restrições
+
+### Tecnologias e Ferramentas
+
+- OK * Utilizar Node.js com Express para a criação do servidor.
+- OK * Utilizar Sequelize para ORM e banco de dados relacional (por exemplo, PostgreSQL, MySQL). 
+- OK * Utilizar JWT (JSON Web Token) para autenticação.
+- OK * Utilizar bcrypt para hashing de senhas. 
+- OK * Seguir as melhores práticas de segurança e estruturação de código.
+
+### Implementação
+
+- Falta * O projeto deve seguir uma arquitetura MVC (Model-View-Controller) para organização do código.
+- Falta * Deve ser implementada a separação de responsabilidades, com controladores específicos para usuários, projetos e tarefas.
+- OK * A conexão com o banco de dados deve ser gerenciada de forma centralizada em um arquivo de configuração.
+- Falta * Middleware de autenticação deve ser aplicado às rotas que requerem usuário autenticado.
+
+## Passos Adicionais
+
+
+### Documentação
+
+- Falta * Inclua um README.md detalhado com instruções de instalação, configuração e uso do sistema.
+- Falta * Documente as rotas da API utilizando uma ferramenta como Swagger ou similar.
+  
+### Testes
+
+- Falta * Implemente testes unitários e de integração para garantir a funcionalidade do sistema.
