@@ -17,6 +17,7 @@ class TaskController {
             titulo,
             descricao,
             status,
+            data_conclusao: null,
             id_projeto
         })
 
@@ -39,26 +40,16 @@ class TaskController {
     
 
     async update(id, titulo, descricao, status, id_projeto) {
-        if (id === undefined || 
-            titulo === undefined || 
-            descricao === undefined || 
-            status === undefined || 
-            id_projeto === undefined) {
+        if (!id||!titulo||!descricao ||!status ||!id_projeto ) {
             throw new Error('Id, título, Descrição, Status e id_projeto são obrigatórios.')
         }
 
         const taskValue = await this.findTask(id)
-        const data_conclusao = null
-        /*if(status == 'concluída'){
-            data_conclusao = new Date();
-        }*/
-
-
+    
         taskValue.titulo = titulo
         taskValue.descricao = descricao
         taskValue.status = status
         taskValue.id_projeto = id_projeto
-        taskValue.data_conclusao = data_conclusao
         taskValue.save()
 
         return taskValue

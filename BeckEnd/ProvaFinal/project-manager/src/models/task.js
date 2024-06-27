@@ -9,10 +9,22 @@ class Task {
                 autoIncrement: true
             },
             titulo: {
-                type: database.db.Sequelize.STRING
+                type: database.db.Sequelize.STRING,
+                validate: {
+                    len: {
+                        args: [1, 50], // Limite mínimo de 1 e máximo de 50 caracteres
+                        msg: "O campo Titulo deve ter entre 1 e 50 caracteres"
+                    }
+                }
             },
             descricao: {
-                type: database.db.Sequelize.STRING
+                type: database.db.Sequelize.STRING,
+                validate: {
+                    len: {
+                        args: [10, 50], // Limite mínimo de 10 e máximo de 100 caracteres
+                        msg: "O campo Descrição deve ter entre 10 e 100 caracteres"
+                    }
+                }
             },
             id_projeto: {
                 type: database.db.Sequelize.INTEGER, 
@@ -31,10 +43,10 @@ class Task {
                     }
                 }
             },
-            /*data_conclusao:{
+            data_conclusao:{
                 type: database.db.Sequelize.DATE,
                 allowNull: true
-            }*/
+            }
         },{
             hooks: {
                 beforeCreate: async (task, options) => {
@@ -48,6 +60,11 @@ class Task {
 
                     if (project === undefined) {
                         throw new Error('Tarefas só podem ser criadas para projetos ativos');
+                    }
+                },
+                beforeSave: (task, options) => {
+                    if (task.status === 'concluída') {
+                        task.data_conclusao = new Date();
                     }
                 }
             }

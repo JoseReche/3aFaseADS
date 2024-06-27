@@ -26,9 +26,9 @@ data de criação, data de conclusão e status.
     - OK * Descrição         
     - OK * Data de criação   
     - OK $ Data da ultima atualização                           
-    - Falta * Data de conclusão (opcional)                          
+    - OK * Data de conclusão (opcional)                          
     - OK * Status (pendente, em andamento, concluída)           
-    - Falta * ID do Projeto (relacionamento com a entidade Projeto) 
+    - OK * ID do Projeto (relacionamento com a entidade Projeto) 
   
 ## Estrutura do Projeto
 
@@ -66,7 +66,7 @@ project-manager/
 ### Criação de Usuário
 
 - OK * O sistema deve permitir a criação de novos usuários com nome, email e senha. 
-- Falta * O email deve ser único para cada usuário. 
+- OK * O email deve ser único para cada usuário. 
 - OK * A senha deve ser armazenada de forma segura (hash). 
   
 ### Autenticação
@@ -78,8 +78,8 @@ project-manager/
 
 - OK * Usuários autenticados podem criar novos projetos. 
 - OK * Cada projeto deve ter um nome e descrição.
-- Falta * Usuários podem editar e excluir seus próprios projetos. - porem restringir a apenas quem criou
-- Falta * Usuários podem visualizar uma lista de seus projetos. -   porem restringir a apenas quem criou
+- OK * Usuários podem editar e excluir seus próprios projetos. - porem restringir a apenas quem criou
+- OK * Usuários podem visualizar uma lista de seus projetos. -   porem restringir a apenas quem criou
 
 ### Gerenciamento de Tarefas
 
@@ -87,13 +87,13 @@ project-manager/
 - OK * Cada tarefa deve ter um título, descrição e status inicial como "pendente".
 - OK * Usuários podem editar e excluir suas próprias tarefas. - porem restringir a apenas quem criou
 - OK * Usuários podem visualizar uma lista de tarefas por projeto com filtros por status.
-- +/- * Cada tarefa deve registrar a data de criação automaticamente e permitir a adição de uma data de conclusão. - falta identificar uma data para conclusao
+- +/- * Cada tarefa deve registrar a data de criação automaticamente e permitir a adição de uma data de conclusão. 
 
 ### Validações
 
-- Falta * Todos os campos obrigatórios devem ser validados.
-- Falta * O título das tarefas deve ter um limite de caracteres (por exemplo, máximo 100 caracteres).
-- Falta * O nome dos projetos deve ter um limite de caracteres (por exemplo, máximo 100 caracteres).
+- OK - Falta testes * Todos os campos obrigatórios devem ser validados.
+- OK * O título das tarefas deve ter um limite de caracteres (por exemplo, máximo 100 caracteres).
+- OK * O nome dos projetos deve ter um limite de caracteres (por exemplo, máximo 100 caracteres).
 
 ### Segurança
 
@@ -113,9 +113,9 @@ project-manager/
 ### Implementação
 
 - Falta * O projeto deve seguir uma arquitetura MVC (Model-View-Controller) para organização do código.
-- Falta * Deve ser implementada a separação de responsabilidades, com controladores específicos para usuários, projetos e tarefas.
+- OK * Deve ser implementada a separação de responsabilidades, com controladores específicos para usuários, projetos e tarefas.
 - OK * A conexão com o banco de dados deve ser gerenciada de forma centralizada em um arquivo de configuração.
-- Falta * Middleware de autenticação deve ser aplicado às rotas que requerem usuário autenticado.
+- OK * Middleware de autenticação deve ser aplicado às rotas que requerem usuário autenticado.
 
 ## Passos Adicionais
 

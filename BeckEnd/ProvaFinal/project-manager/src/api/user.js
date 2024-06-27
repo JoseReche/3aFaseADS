@@ -1,26 +1,31 @@
 const UserController = require('../controllers/user')
 
-
-
-
 class UserApi {
     async createUser(req, res) {
         const { nome, email, senha } = req.body
 
         try {
+            if (!nome) {
+                throw new Error('Nome, é obrigatório.')
+            }else if (!email) {
+                throw new Error('Email, é obrigatório.')
+            } else if (!senha) {
+                throw new Error('Sena, é obrigatório.')
+            }
             const user = await UserController.createUser(nome, email, senha)
             return res.status(201).send(user)
         } catch (e) {
+            console.log(e)
             return res.status(400).send({ error: `Erro ao criar usuário ${e.message}`})
         }
     }
 
     async updateUser(req, res) {
-        const { id } = req.params
         const { nome, email, senha } = req.body
+        const userLogado = req.cookies.user_id;
 
         try {
-            const user = await UserController.update(Number(id), nome, email, senha)
+            const user = await UserController.update(Number(userLogado), nome, email, senha)
             return res.status(200).send(user)
         } catch (e) {
             return res.status(400).send({ error: `Erro ao alterar usuário ${e.message}`})
@@ -28,19 +33,22 @@ class UserApi {
     }
 
     async deleteUser(req, res) {
-        const { id } = req.params
+        const userLogado = req.cookies.userId;
 
         try {
-            await UserController.delete(Number(id))
-            return res.status(204).send()
+            await UserController.delete(Number(userLogado))
+
+            res.clearCookie('userId', { httpOnly: true, secure: true });
+            return res.status(204).send();
         } catch (e) {
             return res.status(400).send({ error: `Erro ao deletar usuário ${e.message}`})
         }
     }
 
     async findUsers(req, res) {
+        const userLogado = req.cookies.userId;
         try {
-            const users = await UserController.find()
+            const users = await UserController.find(userLogado)
             return res.status(200).send(users)
         } catch (e) {
             return res.status(400).send({ error: `Erro ao listar usuário ${e.message}`})

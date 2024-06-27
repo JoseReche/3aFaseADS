@@ -27,9 +27,10 @@ class ProjectApi {
 
     async deleteProject(req, res) {
         const { id } = req.params
+        const id_usuario = req.cookies.userId;
 
         try {
-            await ProjectController.delete(Number(id))
+            await ProjectController.delete(Number(id),id_usuario)
             return res.status(204).send()
         } catch (e) {
             return res.status(400).send({ error: `Erro ao deletar o Projeto  ${e.message}`})
@@ -37,8 +38,9 @@ class ProjectApi {
     }
 
     async findProjects(req, res) {
+        const id_usuario = req.cookies.userId;
         try {
-            const projects = await ProjectController.find()
+            const projects = await ProjectController.find(id_usuario)
             return res.status(200).send(projects)
         } catch (e) {
             return res.status(400).send({ error: `Erro ao listar os Projetos  ${e.message}`})

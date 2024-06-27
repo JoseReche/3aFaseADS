@@ -48,19 +48,28 @@ class ProjectController {
         }
     }
 
-    async delete(id) {
+    async delete(id,id_usuario) {
         if (id === undefined) {
             throw new Error('Id é obrigatório.')
         }
         const projectValue = await this.findProject(id)
-        projectValue.destroy()
+        if(projectValue.id_usuario == id_usuario){ 
 
-        return
+            projectValue.destroy()
+            return
+        }else{
+            throw new Error('Usuario invalido.')
+        }
     }
 
-    async find() {
-        return project.findAll()
-    }
+    async find(id_usuario) {
+        const projectValue = await project.findAll({
+            where: {
+                id_usuario: id_usuario
+            }
+        });
+        return projectValue;
+    }projectValues
 } 
 
 module.exports = new ProjectController()

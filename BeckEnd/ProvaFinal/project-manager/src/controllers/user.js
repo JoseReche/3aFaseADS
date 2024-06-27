@@ -8,10 +8,10 @@ const SALT_VALUE = 10
 
 class UserController {
     async createUser(nome, email, senha) {
-        if (nome === undefined || email === undefined || senha === undefined) {
-            throw new Error('Nome, email e senha são obrigatórios.')
+        const emailValid = await user.findAll({where: {email:email}});
+        if (emailValid.length > 0) {
+            throw new Error('Usuário já cadastrado nesse email: '+email);
         }
-
         const cypherSenha = await bcrypt.hash(senha, SALT_VALUE)
        
         const userValue = await user.create({
@@ -37,12 +37,15 @@ class UserController {
         return userValue
     }
 
-    async update(id, nome, email, senha) {
-        if (id === undefined || nome === undefined || email === undefined || senha === undefined) {
-            throw new Error('Id, Nome, email e senha são obrigatórios.')
+    async update(userLogado, nome, email, senha) {
+        if(userLogado === undefined){
+            throw new Error('Precisa estar logado para alterar usuario')
+        }
+        if (userLogado === undefined || nome === undefined || email === undefined || senha === undefined) {
+            throw new Error('Nome, email e senha são obrigatórios.')
         }
 
-        const userValue = await this.findUser(id)
+        const userValue = await this.findUser(userLogado)
 
         userValue.nome = nome
         userValue.email = email
@@ -52,18 +55,17 @@ class UserController {
         return userValue
     }
 
-    async delete(id) {
-        if (id === undefined) {
-            throw new Error('Id é obrigatório.')
+    async delete(userLogado) {
+        if (userLogado === undefined) {
+            throw new Error('É necesário estar logado para deletar')
         }
-        const userValue = await this.findUser(id)
+        const userValue = await this.findUser(userLogado)
         userValue.destroy()
-
-        return
+        return 
     }
 
-    async find() {
-        return user.findAll()
+    async find(userLogado) {
+        return user.findByPk(userLogado)
     }
 
     async login(email, senha,test) {
