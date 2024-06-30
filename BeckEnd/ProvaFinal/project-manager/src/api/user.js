@@ -39,6 +39,17 @@ class UserApi {
             await UserController.delete(Number(userLogado))
 
             res.clearCookie('userId', { httpOnly: true, secure: true });
+            res.clearCookie('token', { httpOnly: true, secure: true });
+            return res.status(204).send();
+        } catch (e) {
+            return res.status(400).send({ error: `Erro ao deletar usuário ${e.message}`})
+        }
+    }
+
+    async exitUser(req, res) {
+        try {
+            res.clearCookie('userId', { httpOnly: true, secure: true });
+            res.clearCookie('token', { httpOnly: true, secure: true });
             return res.status(204).send();
         } catch (e) {
             return res.status(400).send({ error: `Erro ao deletar usuário ${e.message}`})
@@ -59,12 +70,11 @@ class UserApi {
         const { email, senha } = req.body
 
         try {
-            const token = await UserController.login(email, senha,0)
-            const user_id = await UserController.login(email, senha,1)
+            const user = await UserController.login(email, senha)
             
-            res.cookie('userId', user_id, { httpOnly: true, secure: true });
-            res.cookie('token', token, { httpOnly: true, secure: true });
-            res.status(200).send({ token })
+            res.cookie('userId', user.id, { httpOnly: true, secure: true });
+            res.cookie('token', user.token, { httpOnly: true, secure: true });
+            res.status(200).send(user.token)
         } catch (e) {
             res.status(400).send({ error: e.message })
         }

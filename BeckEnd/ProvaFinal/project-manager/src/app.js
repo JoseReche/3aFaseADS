@@ -31,7 +31,8 @@ app.use('/api/v1/user', UserRouter)
 app.use('/api/v1/task', TaskRouter)
 app.use('/api/v1/project', ProjectRouter)
 
-database.db.sync({force: true})
+database.db.sync()
+
     .then(()=> {
         app.listen(8000, () => {
             console.log('Server running on port 8000')

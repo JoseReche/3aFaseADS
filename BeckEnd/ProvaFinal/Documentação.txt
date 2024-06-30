@@ -97,7 +97,7 @@ project-manager/
 
 ### Segurança
 
-- Falta * Implementar middleware de autenticação para proteger rotas que necessitam de usuário autenticado.
+- OK * Implementar middleware de autenticação para proteger rotas que necessitam de usuário autenticado.
 - OK * Senhas devem ser armazenadas de forma segura utilizando bcrypt.
 
 ## Restrições
@@ -112,7 +112,7 @@ project-manager/
 
 ### Implementação
 
-- Falta * O projeto deve seguir uma arquitetura MVC (Model-View-Controller) para organização do código.
+- OK * O projeto deve seguir uma arquitetura MVC (Model-View-Controller) para organização do código.
 - OK * Deve ser implementada a separação de responsabilidades, com controladores específicos para usuários, projetos e tarefas.
 - OK * A conexão com o banco de dados deve ser gerenciada de forma centralizada em um arquivo de configuração.
 - OK * Middleware de autenticação deve ser aplicado às rotas que requerem usuário autenticado.

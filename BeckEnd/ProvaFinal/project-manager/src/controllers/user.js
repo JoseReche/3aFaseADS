@@ -55,12 +55,22 @@ class UserController {
         return userValue
     }
 
-    async delete(userLogado) {
-        if (userLogado === undefined) {
-            throw new Error('É necesário estar logado para deletar')
-        }
-        const userValue = await this.findUser(userLogado)
-        userValue.destroy()
+
+    async find(userLogado) {
+        return user.findByPk(userLogado)
+    }
+
+    async delete() {
+        user.findByPk(userLogado)
+        user.destroy();
+        Cookies.remove('userId');
+        Cookies.remove('token');
+        return 
+    }
+
+    async exit() {
+        Cookies.remove('userId');
+        Cookies.remove('token');
         return 
     }
 
@@ -70,23 +80,7 @@ class UserController {
 
     async login(email, senha,test) {
 
-        if(test==1){
-            if (email === undefined || senha === undefined) {
-                throw new Error('Email e senha são obrigatórios.')
-            }
-    
-            const userValue = await user.findOne({ where: { email }})
-    
-            if (!userValue) {
-                throw new Error('[1] Usuário e senha inválidos.')
-            }
-    
-            const senhaValida = bcrypt.compare(senha, userValue.senha) 
-            if (!senhaValida) {
-                throw new Error('[2] Usuário e senha inválidos.')
-            }
-            return userValue.id
-        }
+        
         if (email === undefined || senha === undefined) {
             throw new Error('Email e senha são obrigatórios.')
         }
@@ -101,8 +95,15 @@ class UserController {
         if (!senhaValida) {
             throw new Error('[2] Usuário e senha inválidos.')
         }
-        
-        return jwt.sign({ id: userValue.id }, SECRET_KEY, { expiresIn: 60 * 60 })
+
+        const token = jwt.sign({ id: userValue.id }, SECRET_KEY, { expiresIn: 60 * 60 })
+
+        const userLogado = {
+            id: userValue.id,
+            token: token
+        }
+
+        return  userLogado
     }
 
     async validateToken(token) {

@@ -37,6 +37,18 @@ class ProjectApi {
         }
     }
 
+    async exitProject(req, res) {
+        const { id } = req.params
+        const id_usuario = req.cookies.userId;
+
+        try {
+            await ProjectController.delete(Number(id),id_usuario)
+            return res.status(204).send()
+        } catch (e) {
+            return res.status(400).send({ error: `Erro ao deletar o Projeto  ${e.message}`})
+        }
+    }
+
     async findProjects(req, res) {
         const id_usuario = req.cookies.userId;
         try {
