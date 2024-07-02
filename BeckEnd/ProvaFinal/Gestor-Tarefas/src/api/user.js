@@ -52,7 +52,7 @@ class UserApi {
             res.clearCookie('token', { httpOnly: true, secure: true });
             return res.status(204).send();
         } catch (e) {
-            return res.status(400).send({ error: `Erro ao deletar usuário ${e.message}`})
+            return res.status(400).send({ error: `Erro ao Deslogar usuário ${e.message}`})
         }
     }
 

@@ -1,12 +1,12 @@
 {
-  "name": "project-manager",
+  "name": "gestor-tarefas",
   "version": "1.0.0",
   "main": "app.js",
   "scripts": {
     "start": "nodemon src/app.js",
     "test": "jest"
   },
-  "author": "",
+  "author": "Jose_Reche",
   "license": "ISC",
   "description": "",
   "dependencies": {

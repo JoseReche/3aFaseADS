@@ -22,7 +22,7 @@ describe("Logar do Usuario", () => {
 
     it("POST /Logar usuário", async () => {
       const response = await request(app)
-        .post("/api/v1/user")
+        .post("/api/v1/login")
         .send({
             nome: "jose", 
             email: "esdgfgdsdsda@gmail.com", 

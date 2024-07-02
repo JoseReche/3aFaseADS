@@ -68,12 +68,6 @@ class UserController {
         return 
     }
 
-    async exit() {
-        Cookies.remove('userId');
-        Cookies.remove('token');
-        return 
-    }
-
     async find(userLogado) {
         return user.findByPk(userLogado)
     }
@@ -88,12 +82,12 @@ class UserController {
         const userValue = await user.findOne({ where: { email }})
 
         if (!userValue) {
-            throw new Error('[1] Usuário e senha inválidos.')
+            throw new Error('Usuário inválido.')
         }
 
         const senhaValida = bcrypt.compare(senha, userValue.senha) 
         if (!senhaValida) {
-            throw new Error('[2] Usuário e senha inválidos.')
+            throw new Error('Senha inválido.')
         }
 
         const token = jwt.sign({ id: userValue.id }, SECRET_KEY, { expiresIn: 60 * 60 })
