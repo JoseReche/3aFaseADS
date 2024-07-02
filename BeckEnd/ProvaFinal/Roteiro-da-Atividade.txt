@@ -122,8 +122,8 @@ project-manager/
 
 ### Documentação
 
-- Falta * Inclua um README.md detalhado com instruções de instalação, configuração e uso do sistema.
-- Falta * Documente as rotas da API utilizando uma ferramenta como Swagger ou similar.
+- OK * Inclua um README.md detalhado com instruções de instalação, configuração e uso do sistema.
+- OK * Documente as rotas da API utilizando uma ferramenta como Swagger ou similar. // No arquivo README.md
   
 ### Testes
 
